@@ -74,15 +74,21 @@ public class VierGewinnt
     private int insertToken( int column, Token tok )
     {
      //TODO: Your code goes here
-        
-        if (column <= COLS)
+        int depth = 0;
+        if (0 <= column && column <= COLS)
     
-        {/*insert Token*/}
+        {
+         String a = board[column][depth].toString();
+  
+         while (a.equals (" ")
+            && depth <= ROWS)
+            {depth++;}
+         board [column][depth -1] = tok;
+         }
         else
         {System.exit(1);}
-        
     
-    return -1; //TODO: Replace this line
+     return depth -1; //TODO: Replace this line
     
     }
 
@@ -94,11 +100,18 @@ public class VierGewinnt
     private boolean isBoardFull()
     {
         //TODO: Your code goes here
-    	for (int column = 0; column < COLS ; column ++) {
-    		if( board [ROWS -1][ column ] == [] ) /* NONE = empty */
-    		return false ;
-    	}
-    	return true ;
+        
+        int depth = 0;
+        for (int column = 0; column < COLS ; column ++) 
+        {
+                    if ((board[column][depth].toString()).equals("")) 
+                        {
+                            return false;
+                        }
+                    
+        }
+        return true;
+        
     }
 
 
