@@ -104,7 +104,7 @@ public class VierGewinnt
         int depth = 0;
         for (int column = 0; column < COLS ; column ++) 
         {
-                    if ((board[column][depth].toString()).equals("")) 
+                    if ((board[column][depth].toString()).equals(" ")) 
                         {
                             return false;
                         }
@@ -125,8 +125,103 @@ public class VierGewinnt
         //private boolean checkForWin(int x, int y, int z){
         //return newBoard().get(x).equals(newBoard().get(y)) && newBoard().get(y).equals(newBoard().get(z)); 
     
+        //column 4 equals
+        for (int depth = 0; depth < ROWS ; depth ++) {
+            for (int column = 0; column < COLS ; column ++) 
+            {
+                    if ((board[column][depth].toString()).equals(" ")) 
+                        {
+                            return true;
+                        }
+                    
+            }
+        }
+        
+        //rows 4 equals
+        for (int column = 0; column < COLS ; column ++) {
+            for (int depth = 0; depth < ROWS ; depth ++) 
+            {
+                    if ((board[column][depth].toString()).equals(" ")) 
+                        {
+                            return true;
+                        }
+                    
+            }
+        }
+        
+        //one way vertical
+        
+	int col1, row1, coloff;
+	int xwin = 0, owin = 0;
+	for (col1 = 0; col1 < COLS - 3; col1++)
+	{
+		coloff = 0;
+		for (row1 = ROWS - 1; row1 > 0; row1--)
+		{
+			if (board[col1 + coloff][row1].toString().equals("X"))
+			{
+				owin = 0;
+				xwin++;
+			} else if (board[col1 + coloff][row1].toString().equals("O"))
+			{
+				owin++;
+				xwin = 0;
+			} else
+			{
+				owin = xwin = 0;
+			}
+			coloff++;
+
+			if (xwin >= 4)
+			{
+				return 'X';
+			} else if (ywin >= 4)
+			{
+				return 'O';
+			} else
+			{
+				return NULL;
+			}
+		}
+	}
+	
+	//other way vertical
+	
+	for (col1 = COLS; col1 > 3; col1--)
+	{
+		coloff = 0;
+		for (row1 = ROWS - 1; row1 > 0; row1--)
+		{
+			if (board[col1 - coloff][row1].toString().equals("X"))
+			{
+				owin = 0;
+				xwin++;
+			} else if (board[col1 - coloff][row1].toString().equals("O"))
+			{
+				owin++;
+				xwin = 0;
+			} else
+			{
+				owin = xwin = 0;
+			}
+			coloff++;
+
+			if (xwin >= 4)
+			{
+				return 'X';
+			} else if (ywin >= 4)
+			{
+				return 'O';
+			} else
+			{
+				return NULL;
+			}
+		}
+	}
+
+        
         return false; //TODO: Replace this line!
-    }
+        }
 
 
     /** Returns a (deep) copy of the board array */
