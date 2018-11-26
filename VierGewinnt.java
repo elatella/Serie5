@@ -74,21 +74,22 @@ public class VierGewinnt
     private int insertToken( int column, Token tok )
     {
      //TODO: Your code goes here
-        int depth = 0;
+        int depth = 5;
         if (0 <= column && column <= COLS)
     
         {
          String a = board[column][depth].toString();
   
-         while (a.equals (" ")
-            && depth <= ROWS)
-            {depth++;}
-         board [column][depth -1] = tok;
+         while (a.equals (Token.empty)
+         //Token.empty
+            && depth <= ROWS-6)
+            {depth--;}
+         board [column][depth +1] = tok;
          }
         else
         {System.exit(1);}
     
-     return depth -1; //TODO: Replace this line
+     return depth +1; //TODO: Replace this line
     
     }
 
@@ -113,6 +114,7 @@ public class VierGewinnt
         return true;
         
     }
+    
 
 
     /**
@@ -152,7 +154,7 @@ public class VierGewinnt
         //one way vertical
         
 	int col1, row1, coloff;
-	int xwin = 0, owin = 0;
+	int xwin = 0, ywin = 0;
 	for (col1 = 0; col1 < COLS - 3; col1++)
 	{
 		coloff = 0;
@@ -160,27 +162,27 @@ public class VierGewinnt
 		{
 			if (board[col1 + coloff][row1].toString().equals("X"))
 			{
-				owin = 0;
+				ywin = 0;
 				xwin++;
 			} else if (board[col1 + coloff][row1].toString().equals("O"))
 			{
-				owin++;
+				ywin++;
 				xwin = 0;
 			} else
 			{
-				owin = xwin = 0;
+				ywin = xwin = 0;
 			}
 			coloff++;
 
 			if (xwin >= 4)
 			{
-				return 'X';
+				return true;
 			} else if (ywin >= 4)
 			{
-				return 'O';
+				return true ;
 			} else
 			{
-				return NULL;
+				return false;
 			}
 		}
 	}
@@ -194,33 +196,36 @@ public class VierGewinnt
 		{
 			if (board[col1 - coloff][row1].toString().equals("X"))
 			{
-				owin = 0;
+				ywin = 0;
 				xwin++;
 			} else if (board[col1 - coloff][row1].toString().equals("O"))
 			{
-				owin++;
+				ywin++;
 				xwin = 0;
 			} else
 			{
-				owin = xwin = 0;
+				ywin = xwin = 0;
 			}
 			coloff++;
 
 			if (xwin >= 4)
 			{
-				return 'X';
+				return true;
+				//sol in Anas code not defined
 			} else if (ywin >= 4)
 			{
-				return 'O';
+				return true;
 			} else
 			{
-				return NULL;
+				return false;
 			}
 		}
 	}
 
         
-        return false; //TODO: Replace this line!
+        return false; 
+        //ana return sol
+        //TODO: Replace this line!
         }
 
 
