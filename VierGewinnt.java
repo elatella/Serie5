@@ -74,21 +74,14 @@ public class VierGewinnt
     private int insertToken( int column, Token tok )
     {
      //TODO: Your code goes here
-        int depth = 1;
-        if (0 <= column && column <= COLS)
+        int depth = ROWS -1;
+        
+         while ( depth >= 0 && board[column][depth] == Token.empty)
+            {depth--;}
+         board [column][depth+ 1] = tok;
+        
     
-        {
-  
-         while (board[column][depth] == Token.empty
-         //Token.empty
-            && depth <= ROWS-7)
-            {depth++;}
-         board [column][depth--] = tok;
-         }
-        else
-        {System.exit(1);}
-    
-     return depth++; //TODO: Replace this linec
+     return depth +1; //TODO: Replace this linec
     
     }
 
@@ -116,14 +109,14 @@ public class VierGewinnt
     
     /*
      * private boolean isColFull( int col, Token[][] board )
-	{
-		int topRow = board[ 0 ].length - 1;
-		if ( board[ col ][ topRow ] != Token.empty ) {
-			return true;
-		} else {
-			return false;
-		}
-	}
+    {
+        int topRow = board[ 0 ].length - 1;
+        if ( board[ col ][ topRow ] != Token.empty ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
      */
     
 
@@ -135,14 +128,16 @@ public class VierGewinnt
     private boolean checkVierGewinnt( int col, int row )
     {
         //TODO: Your code goes here
-        //private boolean checkForWin(int x, int y, int z){
-        //return newBoard().get(x).equals(newBoard().get(y)) && newBoard().get(y).equals(newBoard().get(z)); 
     
         //column 4 equals
-        for (int depth = 0; depth < ROWS ; depth ++) {
+        for (int depth = 0; depth < ROWS-3 ; depth ++) {
             for (int column = 0; column < COLS ; column ++) 
             {
-                    if ((board[column][depth].toString()).equals(Token.empty)) 
+                    if (board[column][depth] != Token.empty &&
+                        board [column][depth] == board [column][depth +1]&&
+                        board [column][depth] == board [column][depth +2]&&
+                        board [column][depth] == board [column][depth +3]
+                    ) 
                         {
                             return true;
                         }
@@ -151,10 +146,14 @@ public class VierGewinnt
         }
         
         //rows 4 equals
-        for (int column = 0; column < COLS ; column ++) {
+        for (int column = 0; column < COLS -4 ; column ++) {
             for (int depth = 0; depth < ROWS ; depth ++) 
             {
-                    if ((board[column][depth].toString()).equals(Token.empty)) 
+                    if (board[column][depth] != Token.empty &&
+                        board [column][depth] == board [column +1][depth]&&
+                        board [column][depth] == board [column +2][depth]&&
+                        board [column][depth] == board [column +3][depth]
+                    )  
                         {
                             return true;
                         }
@@ -163,75 +162,100 @@ public class VierGewinnt
         }
         
         //one way vertical
-        
-	int col1, row1, coloff;
-	int xwin = 0, ywin = 0;
-	for (col1 = 0; col1 < COLS - 3; col1++)
-	{
-		coloff = 0;
-		for (row1 = ROWS - 1; row1 > 0; row1--)
-		{
-			if (board[col1 + coloff][row1].toString().equals(Token.player2))
-			{
-				ywin = 0;
-				xwin++;
-			} else if (board[col1 + coloff][row1].toString().equals(Token.player1))
-			{
-				ywin++;
-				xwin = 0;
-			} else
-			{
-				ywin = xwin = 0;
-			}
-			coloff++;
+     for (int column=0; column < COLS-4; column++)
+     {
+         for (int depth =0; depth < ROWS -3; depth++)
+         {
+             if (board[column][depth] != Token.empty &&
+                        board [column][depth] == board [column+1][depth +1]&&
+                        board [column][depth] == board [column+2][depth +2]&&
+                        board [column][depth] == board [column+3][depth +3]
+                    ) 
+                    {
+                    return true;
+                    }
+         }
+         
+         for(int depth = ROWS -3; depth < ROWS; depth++)
+         {
+             if (board[column][depth] != Token.empty &&
+                        board [column][depth] == board [column +1][depth -1]&&
+                        board [column][depth] == board [column +2][depth -2]&&
+                        board [column][depth] == board [column +3][depth -3]
+                    ) 
+                    {
+                    return true;
+                    }
+            }
+        }
+    /*int col1, row1, coloff;
+    int xwin = 0, ywin = 0;
+    for (col1 = 0; col1 < COLS - 3; col1++)
+    {
+        coloff = 0;
+        for (row1 = ROWS - 1; row1 > 0; row1--)
+        {
+            if (board[col1 + coloff][row1] == Token.player2)
+            {
+                ywin = 0;
+                xwin++;
+            } else if (board[col1 + coloff][row1] == Token.player1)
+            {
+                ywin++;
+                xwin = 0;
+            } else
+            {
+                ywin = xwin = 0;
+            }
+            coloff++;
 
-			if (xwin >= 4)
-			{
-				return true;
-			} else if (ywin >= 4)
-			{
-				return true ;
-			} else
-			{
-				return false;
-			}
-		}
-	}
-	
-	//other way vertical
-	
-	for (col1 = COLS; col1 > 3; col1--)
-	{
-		coloff = 0;
-		for (row1 = ROWS - 1; row1 > 0; row1--)
-		{
-			if (board[col1 - coloff][row1].toString().equals(Token.player2))
-			{
-				ywin = 0;
-				xwin++;
-			} else if (board[col1 - coloff][row1].toString().equals(Token.player1))
-			{
-				ywin++;
-				xwin = 0;
-			} else
-			{
-				ywin = xwin = 0;
-			}
-			coloff++;
+            if (xwin >= 4)
+            {
+                return true;
+            } else if (ywin >= 4)
+            {
+                return true ;
+            } else
+            {
+                return false;
+            }
+        }
+    }
+    
+    //other way vertical
+    
+    for (col1 = COLS; col1 > 3; col1--)
+    {
+        coloff = 0;
+        for (row1 = ROWS - 1; row1 > 0; row1--)
+        {
+            if (board[col1 - coloff][row1] == Token.player2)
+            {
+                ywin = 0;
+                xwin++;
+            } else if (board[col1 - coloff][row1] == Token.player1)
+            {
+                ywin++;
+                xwin = 0;
+            } else
+            {
+                ywin = xwin = 0;
+            }
+            coloff++;
 
-			if (xwin >= 4)
-			{
-				return true;
-				//sol in Anas code not defined
-			} else if (ywin >= 4)
-			{
-				return true;
-			} else
-			{
-				return false;
-			}
-		}
-	}
+            if (xwin >= 4)
+            {
+                return true;
+                //sol in Anas code not defined
+            } else if (ywin >= 4)
+            {
+                return true;
+            } else
+            {
+                return false;
+            }
+        }
+    */
 
         
         return false; 
