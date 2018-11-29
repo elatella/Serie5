@@ -74,7 +74,7 @@ public class VierGewinnt
     private int insertToken( int column, Token tok )
     {
      //TODO: Your code goes here
-        int depth = 5;
+        int depth = 0;
         if (0 <= column && column <= COLS)
     
         {
@@ -82,14 +82,14 @@ public class VierGewinnt
   
          while (a.equals (Token.empty)
          //Token.empty
-            && depth <= ROWS-6)
-            {depth--;}
-         board [column][depth +1] = tok;
+            && depth <= ROWS-7)
+            {depth++;}
+         board [column][depth] = tok;
          }
         else
         {System.exit(1);}
     
-     return depth +1; //TODO: Replace this line
+     return depth +1; //TODO: Replace this linec
     
     }
 
@@ -105,7 +105,7 @@ public class VierGewinnt
         int depth = 0;
         for (int column = 0; column < COLS ; column ++) 
         {
-                    if ((board[column][depth].toString()).equals(" ")) 
+                    if ((board[column][depth].toString()).equals(Token.empty)) 
                         {
                             return false;
                         }
@@ -131,7 +131,7 @@ public class VierGewinnt
         for (int depth = 0; depth < ROWS ; depth ++) {
             for (int column = 0; column < COLS ; column ++) 
             {
-                    if ((board[column][depth].toString()).equals(" ")) 
+                    if ((board[column][depth].toString()).equals(Token.empty)) 
                         {
                             return true;
                         }
@@ -143,7 +143,7 @@ public class VierGewinnt
         for (int column = 0; column < COLS ; column ++) {
             for (int depth = 0; depth < ROWS ; depth ++) 
             {
-                    if ((board[column][depth].toString()).equals(" ")) 
+                    if ((board[column][depth].toString()).equals(Token.empty)) 
                         {
                             return true;
                         }
@@ -160,11 +160,11 @@ public class VierGewinnt
 		coloff = 0;
 		for (row1 = ROWS - 1; row1 > 0; row1--)
 		{
-			if (board[col1 + coloff][row1].toString().equals("X"))
+			if (board[col1 + coloff][row1].toString().equals(Token.player2))
 			{
 				ywin = 0;
 				xwin++;
-			} else if (board[col1 + coloff][row1].toString().equals("O"))
+			} else if (board[col1 + coloff][row1].toString().equals(Token.player1))
 			{
 				ywin++;
 				xwin = 0;
@@ -194,11 +194,11 @@ public class VierGewinnt
 		coloff = 0;
 		for (row1 = ROWS - 1; row1 > 0; row1--)
 		{
-			if (board[col1 - coloff][row1].toString().equals("X"))
+			if (board[col1 - coloff][row1].toString().equals(Token.player2))
 			{
 				ywin = 0;
 				xwin++;
-			} else if (board[col1 - coloff][row1].toString().equals("O"))
+			} else if (board[col1 - coloff][row1].toString().equals(Token.player1))
 			{
 				ywin++;
 				xwin = 0;
