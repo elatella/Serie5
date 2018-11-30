@@ -106,19 +106,6 @@ public class VierGewinnt
         return true;
         
     }
-    
-    /*
-     * private boolean isColFull( int col, Token[][] board )
-    {
-        int topRow = board[ 0 ].length - 1;
-        if ( board[ col ][ topRow ] != Token.empty ) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-     */
-    
 
 
     /**
@@ -188,74 +175,6 @@ public class VierGewinnt
                     }
             }
         }
-    /*int col1, row1, coloff;
-    int xwin = 0, ywin = 0;
-    for (col1 = 0; col1 < COLS - 3; col1++)
-    {
-        coloff = 0;
-        for (row1 = ROWS - 1; row1 > 0; row1--)
-        {
-            if (board[col1 + coloff][row1] == Token.player2)
-            {
-                ywin = 0;
-                xwin++;
-            } else if (board[col1 + coloff][row1] == Token.player1)
-            {
-                ywin++;
-                xwin = 0;
-            } else
-            {
-                ywin = xwin = 0;
-            }
-            coloff++;
-
-            if (xwin >= 4)
-            {
-                return true;
-            } else if (ywin >= 4)
-            {
-                return true ;
-            } else
-            {
-                return false;
-            }
-        }
-    }
-    
-    //other way vertical
-    
-    for (col1 = COLS; col1 > 3; col1--)
-    {
-        coloff = 0;
-        for (row1 = ROWS - 1; row1 > 0; row1--)
-        {
-            if (board[col1 - coloff][row1] == Token.player2)
-            {
-                ywin = 0;
-                xwin++;
-            } else if (board[col1 - coloff][row1] == Token.player1)
-            {
-                ywin++;
-                xwin = 0;
-            } else
-            {
-                ywin = xwin = 0;
-            }
-            coloff++;
-
-            if (xwin >= 4)
-            {
-                return true;
-                //sol in Anas code not defined
-            } else if (ywin >= 4)
-            {
-                return true;
-            } else
-            {
-                return false;
-            }
-        }
-    */
 
         
         return false; 
@@ -300,7 +219,6 @@ public class VierGewinnt
         presentation += rowNumbering;
         return presentation;
     }
-
 
 
     /** main method, starts the program */
